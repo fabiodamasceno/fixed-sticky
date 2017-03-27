@@ -35,8 +35,8 @@
 			id: 'fixedStickyId'
 		},
 		tests: {
-			sticky: featureTest( 'position', 'sticky' ),
-			fixed: featureTest( 'position', 'fixed', true )
+			sticky: plugin.featureTest( 'position', 'sticky' ),
+			fixed: plugin.featureTest( 'position', 'fixed', true )
 		},
 		// Thanks jQuery!
 		getScrollTop: function() {
