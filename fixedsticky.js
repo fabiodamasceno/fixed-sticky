@@ -1,19 +1,19 @@
 ;(function() {
-	var plugin = function( win, $ ) {
-		function featureTest( property, value, noPrefixes ) {
-			// Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
-			var prop = property + ':',
-				el = document.createElement( 'test' ),
-				mStyle = el.style;
 
-			if( !noPrefixes ) {
-				mStyle.cssText = prop + [ '-webkit-', '-moz-', '-ms-', '-o-', '' ].join( value + ';' + prop ) + value + ';';
-			} else {
-				mStyle.cssText = prop + value;
-			}
-			return mStyle[ property ].indexOf( value ) !== -1;
+var plugin = function( win, $ ) {
+	function featureTest( property, value, noPrefixes ) {
+		// Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
+		var prop = property + ':',
+			el = document.createElement( 'test' ),
+			mStyle = el.style;
+
+		if( !noPrefixes ) {
+			mStyle.cssText = prop + [ '-webkit-', '-moz-', '-ms-', '-o-', '' ].join( value + ';' + prop ) + value + ';';
+		} else {
+			mStyle.cssText = prop + value;
 		}
-	};
+		return mStyle[ property ].indexOf( value ) !== -1;
+	}
 
 	function getPx( unit ) {
 		return parseInt( unit, 10 ) || 0;
@@ -35,8 +35,8 @@
 			id: 'fixedStickyId'
 		},
 		tests: {
-			sticky: plugin.featureTest( 'position', 'sticky' ),
-			fixed: plugin.featureTest( 'position', 'fixed', true )
+			sticky: featureTest( 'position', 'sticky' ),
+			fixed: featureTest( 'position', 'fixed', true )
 		},
 		// Thanks jQuery!
 		getScrollTop: function() {
@@ -77,8 +77,6 @@
 				initialOffset = $el.offset().top;
 				$el.data( S.keys.offset, initialOffset );
 				$el.after( $( '<div>' ).addClass( S.classes.clone ).height( height ) );
-			} else {
-				$el.next( '.' + S.classes.clone ).height( height );
 			}
 
 			if( !position ) {
@@ -190,13 +188,15 @@
 	if( !win.FixedFixed ) {
 		$( win.document.documentElement ).addClass( S.classes.withoutFixedFixed );
 	}
+};
 
-	// Export the plugin object for CommonJS. If we're not in CommonJS, register
-	// plugin using jQuery global.
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = plugin;
-	} else {
-		plugin(window, jQuery);
-	}
 
-}()); 
+// Export the plugin object for CommonJS. If we're not in CommonJS, register
+// plugin using jQuery global.
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = plugin;
+} else {
+	plugin(window, jQuery);
+}
+
+}());

@@ -9,9 +9,11 @@ A CSS `position:sticky` polyfill.
 
 ## Browser Support
 
-CSS position:sticky is in its infancy in terms of browser support. In stock browsers, it is available in Firefox 32+ and prefixed in Safari on iOS 6+ and Safari 6.1+.
+CSS position:sticky is really in its infancy in terms of browser support. In stock browsers, it is currently only available in iOS 6.
 
 ~~In Chrome you can enable it by navigating to `chrome://flags` and enabling experimental “WebKit features” or “Web Platform features” (Canary).~~ Chrome temporarily removed their native `position: sticky` implementation.
+
+In Firefox you you can go to `about:config` and set `layout.css.sticky.enabled` to "true".
 
 ## Important
 
@@ -81,6 +83,17 @@ If you’re having weird issues with native `position: sticky`, you can tell fix
 
 Use the provided `fixedsticky.js` and `fixedsticky.css` files.
 
+### Also available in [NPM](https://www.npmjs.com/package/fixed-sticky)
+
+This package is available in NPM for use with [Browserify](http://browserify.org/). First install the package.
+
+    npm install --save fixed-sticky
+
+Then, require it and register it with your copy of jQuery.
+
+    var $ = require('jquery');
+    require('fixed-sticky')(window, $);
+
 ### Also available in [Bower](http://bower.io/)
 
     bower install filament-sticky
@@ -121,3 +134,4 @@ These tests were performed using fixed-sticky with fixed-fixed. It’s safest to
 
 * `v0.1.0`: Initial release.
 * `v0.1.3`: Bug fixes, rudimentary tests, destroy method.
+* `v0.2.0`: Bug fixes, modules support.
