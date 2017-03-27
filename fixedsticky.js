@@ -1,18 +1,19 @@
-;(function( win, $ ) {
+;(function() {
+	var plugin = function( win, $ ) {
+		function featureTest( property, value, noPrefixes ) {
+			// Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
+			var prop = property + ':',
+				el = document.createElement( 'test' ),
+				mStyle = el.style;
 
-	function featureTest( property, value, noPrefixes ) {
-		// Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
-		var prop = property + ':',
-			el = document.createElement( 'test' ),
-			mStyle = el.style;
-
-		if( !noPrefixes ) {
-			mStyle.cssText = prop + [ '-webkit-', '-moz-', '-ms-', '-o-', '' ].join( value + ';' + prop ) + value + ';';
-		} else {
-			mStyle.cssText = prop + value;
+			if( !noPrefixes ) {
+				mStyle.cssText = prop + [ '-webkit-', '-moz-', '-ms-', '-o-', '' ].join( value + ';' + prop ) + value + ';';
+			} else {
+				mStyle.cssText = prop + value;
+			}
+			return mStyle[ property ].indexOf( value ) !== -1;
 		}
-		return mStyle[ property ].indexOf( value ) !== -1;
-	}
+	};
 
 	function getPx( unit ) {
 		return parseInt( unit, 10 ) || 0;
@@ -190,4 +191,12 @@
 		$( win.document.documentElement ).addClass( S.classes.withoutFixedFixed );
 	}
 
-})( window, jQuery );
+	// Export the plugin object for CommonJS. If we're not in CommonJS, register
+	// plugin using jQuery global.
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = plugin;
+	} else {
+		plugin(window, jQuery);
+	}
+
+}()); 
