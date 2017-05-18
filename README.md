@@ -87,7 +87,7 @@ Use the provided `fixedsticky.js` and `fixedsticky.css` files.
 
 This package is available in NPM for use with [Browserify](http://browserify.org/). First install the package.
 
-    npm install --save fixed-sticky
+    npm install --save fixed-sticky-module
 
 Then, require it and register it with your copy of jQuery.
 
